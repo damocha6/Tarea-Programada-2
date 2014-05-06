@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!-- Front-end de la II Tarea Programada / Lenguajes de Programación I Semestre 2014 -->
+<html lang="en"> 
+
+
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Aplicacion para Manejo y Consulta de Restaurantes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css" media="screen"  />
+    <link rel="stylesheet" href="css/bootstrap-theme.css" media="screen"  />
+    <link rel="stylesheet" href="css/custom.css" media="screen"  />
+    
+    <style type="text/css">
+	
+	
+      /* Estilos personalizados extra
+      -------------------------------------------------- */
+      
+	  html,
+      body {
+		background-image:url(img/fondo3.jpg);
+		background-position:initial;
+		background-repeat::no-repeat;
+	    height: 100%;
+        /* The html and body elements cannot have any padding or margin. */
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      footer {
+            color: #666;
+            background: #222;
+            padding: 17px 0 18px 0;
+            border-top: 1px solid #000;
+			width:100%;
+        }
+        footer a {
+            color: #1d97cf;
+						
+        }
+        footer a:hover {
+            color: #efefef;
+			cursor: pointer;
+        }
+
+        /* Lastly, apply responsive CSS fixes as necessary */
+        @media (max-width: 767px) {
+        #footer {
+			margin-left: -20px;
+			margin-right: -20px;
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+		}
+        
+		
+
+      /* Custom page CSS
+      -------------------------------------------------- */
+      /* Not required for template or sticky footer method. */
+
+      #wrap > .container {
+        padding-top: 60px;
+      }
+      .container .credit {
+        margin: 20px 0;
+      }
+
+      code {
+        font-size: 80%;
+      }
+
+    </style>
+    
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" media="screen"/>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+     <link rel="shortcut icon" href="http://www.iconarchive.com/download/i78283/pixelkit/tasty-bites/hamburger.ico">
+  
+
+</style></head>
+
+  <body>
+
+
+    <!-- Part 1: Wrap all page content here -->
+    <div id="wrap">
+
+            <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Menu</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="rest.manager.htm"><img style="max-width:40px; margin-top: -9px;" src="img/rm_logo_transparent.png"> Rest. Manager</a>
+        </div>
+        <div class="navbar-collapse collapse" style="height: 1px;">
+          <ul class="nav navbar-nav">
+            <li><a href="rest.manager.htm"><span class="glyphicon glyphicon-home"></span>&nbsp;   Inicio</a></li>
+            <li class="dropdown">
+                  <a href="rest.manager.htm#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span>&nbsp; Consultas<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="rest.manager.consulta.restaurantes.htm">Restaurantes</a></li>
+                    <li><a href="rest.manager.consulta.platillos.htm">Platillos</a></li>
+                   </ul>
+            </li><!-- /.dropdown -->
+            <li class="dropdown active">
+                  <a href="rest.manager.htm#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cutlery"></span>&nbsp; Mantenimiento<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="rest.manager.mantenimiento.restaurantes.htm">Restaurantes</a></li>
+                    <li><a href="rest.manager.mantenimiento.platillos.htm">Platillos</a></li>
+                   </ul>
+            </li><!-- /.dropdown -->
+                
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
+
+
+      <!-- Begin page content -->
+      <div class="container">
+        <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1>Platillos</h1>
+        
+        <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" id="sectionNuevoPlatillo" href="#sectionNuevo"><span title="New Dish">Nuevo Platillo</span></a></li>
+        <li><a data-toggle="tab" href="#sectionIngrediente"><span title="Add Ingredient">Agregar Ingrediente</span></a></li>
+     </ul>
+        <p class="lead">
+        <div class="tab-content">
+        <div id="sectionNuevo" class="tab-pane fade in active">
+        
+                <form class="form-horizontal"  method="post">
+<fieldset>
+
+<!-- Form Name -->
+<p></p>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputNombre">Nombre</label>  
+  <div class="col-md-5">
+  <input id="inputNombre" name="inputNombre" type="text" placeholder="Name" class="form-control input-md" required="">
+  <span class="help-block">Nombre del platillo</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputSabor">Sabor</label>  
+  <div class="col-md-5">
+  <input id="inputSabor" name="inputSabor" type="text" placeholder="Flavor" class="form-control input-md" required="">
+  <span class="help-block">Sabor del platillo. Ej: dulce, salado, etc.</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputPais">País</label>  
+  <div class="col-md-5">
+  <input id="inputPais" name="inputPais" type="text" placeholder="Country" class="form-control input-md" required="">
+  <span class="help-block">País de origen</span>  
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textareaIngredientes">Ingredientes</label>
+  <div class="col-md-4">                     
+    <textarea class="form-control input-md" id="textareaIngredientes" rows="4" cols="50" onClick="this.select()" name="textareaIngredientes">Ej: arroz,frijoles,etc.</textarea>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="buttonNuevo"></label>
+  <div class="col-md-4">
+    <button id="buttonNuevo" name="buttonNuevo" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-upload"></span> Agregar</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+             
+        </div>
+        <div id="sectionIngrediente" class="tab-pane fade">
+        
+                        <form class="form-horizontal"  method="post">
+<fieldset>
+
+<!-- Form Name -->
+<p></p>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputNombre">Nombre</label>  
+  <div class="col-md-5">
+  <input id="inputNombre" name="inputNombre" type="text" placeholder="Name" class="form-control input-md" required="">
+  <span class="help-block">Nombre del platillo</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputIngrediente">Ingrediente</label>  
+  <div class="col-md-5">
+  <input id="inputIngrediente" name="inputIngrediente" type="text" placeholder="Ingredient" class="form-control input-md" required="">
+  <span class="help-block">Ingrediente por agregar</span>  
+  </div>
+</div>
+
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="buttonIngrediente"></label>
+  <div class="col-md-4">
+    <button id="buttonIngrediente" name="buttonIngrediente" class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-floppy-saved"></span> Agregar</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+        
+        </div>
+        </div>
+        
+
+        
+        
+        </p>
+      
+      </div> <!-- Jumbotron -->
+      </div> <!-- container -->
+
+      <div class="well invisible" id="push"></div>
+       
+       <p></p>
+      <p></p>
+      <p></p>
+    </div>
+
+
+    <footer>
+      <div class="container">
+        <p>@ITCR 2014 - Tarea Programada 2 .<a href="https://www.facebook.com/edgar.solorzanopacheco" rel="author"> Edgar Solórzano</a>, <a href="https://www.facebook.com/daniel.morachacon" rel="external">Daniel Mora</a> y <a href="https://www.facebook.com/geracaba" rel="external">Gerardo Calderón</a>.</p>
+      </div>
+    </footer>
+    
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+        
+    
+</body></html>
