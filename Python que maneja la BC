@@ -1,0 +1,222 @@
+from pyswip import Prolog
+
+p = Prolog()
+
+#p.consult('BC.pl')
+
+#__________________________________________________________________
+
+#Funcion para agregar un restaurante a la base de conocimientos
+
+def agregar_restaurante(nombre,comida,ubicacion,telefono,horario):
+
+    AgregaRestaurante = "restaurante("+nombre+","+comida+","+ubicacion+","+telefono+","+horario+")"
+
+    #Metodo assertz de la libreria pyswip
+
+    p.assertz(AgregaRestaurante)
+
+#Funcion para agregar platillos a la base de conocimientos
+    
+def agregar_platillo(nombre,sabor,origen,ingredientes):
+
+    AgregaPlatillo = "platillo("+nombre+","+sabor+","+origen+","+ingredientes+")"
+
+    #Metodo assertz de la libreria pyswip
+
+    p.assertz(AgregaPlatillo)
+
+
+#____________________________________________________________________
+
+    
+#Funcion que consulta los restaurantes - Prueba de base de conocimiento
+
+def consultar_restaurante(nombre,comida,ubicacion,telefono,horario):
+    consulta = "restaurante("+nombre+","+comida+","+ubicacion+","+telefono+","+horario+")"
+
+    # Realiza la consulta utilizando el metodo query y lo mete en una lista
+
+    busca = list(p.query(busca))
+
+    for elem in busca:
+        if(nombre != "Nombre"):
+            elem["Nombre"]=nombre
+        if(comida != "Comida"):
+            elem["Comida"]=comida
+        if(ubicacion != "Ubicacion"):
+            elem["Ubicacion"]=ubicacion
+        if(telefono != "Telefono"):
+            elem["Telefono"]=telefono
+        if(horario != "Horario"):
+            elem["Horario"]=horario
+    return busca
+    
+
+#Funcion que consulta los platillos - Prueba de base de conocimiento
+
+def consultar_platillo(nombre,sabor,origen,ingredientes):
+
+    menu = "platillo("+nombre+","+sabor+","+origen+","+ingredientes+")"
+
+    # Realiza la consulta utilizando el metodo query y lo mete en una lista
+
+    plato = list(p.query(menu))
+
+    for elem in busca:
+        if(nombre != "Nombre"):
+            elem["Nombre"]=nombre
+        if(sabor != "Sabor"):
+            elem["Sabor"]=sabor
+        if(origen != "Origen"):
+            elem["Origen"]= origen
+        if(ingredientes != "Ingredientes"):
+            elem["Ingredientes"]=ingredientes
+    return menu
+
+    
+from pyswip import*
+#nombre,comida,ubicacion,telefono,horario,lista_platillos
+p = Prolog()
+
+p.consult('BaseConocimientos.pl','Back-End.pl')
+
+
+#Funcion para agregar un restaurante a la base de conocimientos
+
+#__________________________________________________________________
+
+
+def AgregaRestaurante(nombre,comida,ubicacion,telefono,horario):
+
+    archivo = open('BaseConocimientos.pl','a')
+
+    lista_restaurantes = []
+    
+    agrega = "\nrestaurante("+nombre.lower()+","+comida.lower()+","+ubicacion.lower()+","+telefono.lower()+","+horario.lower()+")."
+
+    lista_restaurantes.append(agrega)
+
+    hecho_restaurante = list(set(lista_restaurantes))
+
+    for x in hecho_restaurante:
+        archivo.write(x)
+
+    print "Se agrego el restaurante exitosamente"
+
+    archivo.close()
+    
+
+#__________________________________________________________#
+    
+#Funcion para agregar platillos a la base de conocimientos
+
+
+def AgregarPlatillo(nombre,sabor,origen,ingredientes):
+
+    str1 = ''.join(ingredientes)
+
+    archivo = open('BaseConocimientos.pl','a')
+
+    lista_hechos = []
+    
+    agrega = "\nplatillo("+nombre.lower()+","+sabor.lower()+","+origen.lower()+",["+str1+"])."
+
+    lista_hechos.append(agrega)
+
+    nuevo_hecho = list(set(lista_hechos))
+
+    for x in nuevo_hecho:
+        archivo.write(x)
+
+    print "Platillo Agregado con Exito"
+
+    archivo.close()
+    
+#____________________________________________________________________
+
+#Funcion que consulta los restaurantes - Prueba de base de conocimiento
+
+def consultar_restaurante(nombre,comida,ubicacion,telefono,horario):
+    consulta = "restaurante("+nombre+","+comida+","+ubicacion+","+telefono+","+horario+","+lista_platillos+")"
+
+    # Realiza la consulta utilizando el metodo query y lo mete en una lista
+
+    busca = list(p.query(busca))
+
+    for elem in busca:
+        if(nombre != "Nombre"):
+            elem["Nombre"]=nombre
+        if(comida != "Comida"):
+            elem["Comida"]=comida
+        if(ubicacion != "Ubicacion"):
+            elem["Ubicacion"]=ubicacion
+        if(telefono != "Telefono"):
+            elem["Telefono"]=telefono
+        if(horario != "Horario"):
+            elem["Horario"]=horario
+	
+    return busca
+    
+
+#Funcion que consulta los platillos - Prueba de base de conocimiento
+
+def consultar_platillo(nombre,sabor,origen,ingredientes):
+
+    cambio = ''.join(ingredientes)    
+
+    menu = "platillo("+nombre+","+sabor+","+origen+",["+cambio+"])"
+
+    # Realiza la consulta utilizando el metodo query y lo mete en una lista
+
+    plato = list(p.query(menu))
+
+    for elem in plato:
+        if(nombre != "Nombre"):
+            elem["Nombre"]=nombre
+        if(sabor != "Sabor"):
+            elem["Sabor"]=sabor
+        if(origen != "Origen"):
+            elem["Origen"]= origen
+        if(ingredientes != "Ingredientes"):
+            elem["Ingredientes"]=ingredientes
+    return menu
+
+
+#Funcion que imprime la base de conocimientos
+
+def imprime_rest():
+    print "Restaurantes: \n"
+
+    #ciclo para recorrer la BC
+
+    for busqueda in p.query("restaurante(Nombre,Comida,Ubicacion,Telefono,Horario"):
+        print "Nombre: ", busqueda["Nombre"]
+        print "Comida: ", busqueda["Comida"]
+        print "Ubicacion", busqueda["Ubicacion"]
+        print "Telefono", busqueda["Telefono"]
+        print "Horario", busqueda["Horario"]
+
+
+#Funcion que imprime la base de conocimientos
+
+def imprime_platillo():
+    temp = []
+    print "Platillos: \n"
+
+    #ciclo para recorrer la BC
+
+    for busqueda in p.query("platillo(Nombre,Sabor,Origen,Ingredientes)."):
+        print "Nombre: ", busqueda["Nombre"]
+        print "Sabor: ", busqueda["Sabor"]
+        print "Origen", busqueda["Origen"]
+        for i in busqueda["Ingredientes"]:
+            temp.append(str(i))
+            temp.append(",")
+            ingredientes = ''.join(temp)
+        #temp.remove(",")
+        print "Ingredientes:"+"["+ingredientes+"]\n"
+        temp = []
+
+
+    
