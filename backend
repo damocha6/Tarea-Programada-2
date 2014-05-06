@@ -1,0 +1,37 @@
+%%% Buscar platillo con un dato específico %%%%
+
+% Busqueda en una lista específica %
+
+busqueda_dato([],Dato):-fail.
+
+busqueda_dato([Cabeza|Cola],Dato):-
+Cabeza=Elemento,!.
+
+busqueda_dato([Cabeza|Cola],Dato):-
+busqueda_dato(Cola,Dato).
+
+%% Funcion que busca un platillo en un restaurante%
+
+menu(Platillo,Lista):-
+findall(Resultado,escaneo_menu(Platillo,Resultado),Lista).
+
+escaneo_menu(Platillo,Resultado):-
+restaurante(Nombre,_,_,_,_,ListaPlatillos),
+busqueda_dato(ListaPlatillos,Platillo),
+Resultado=Platillo.
+
+%% Busqueda de restaurante por tipo de comida %%
+
+informacion_restaurante(Resultado):-
+restaurante(Nombre,Comida,_,_,_,_),
+Resultado = Nombre.
+
+%% Busqueda de restaurante por pais %%
+
+informacion_restaurante(Resultado):-
+platillo(Restaurante,Nombre,_,Origen,_),
+Resultado = Restaurante.
+
+
+
+
